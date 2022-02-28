@@ -1,0 +1,16 @@
+export const COLORS = {
+  DARK: {
+    BACKGROUND: '#151515',
+    BOX_COLOR: '#202020',
+    TEXT_COLOR: '#F0FFFF',
+    RED: '#FF4757',
+    DISABLED_COLOR: '#DCDCDC',
+  },
+  LIGHT: {
+    BACKGROUND: '#F8F8F8',
+    BOX_COLOR: '#F3F3F3',
+    TEXT_COLOR: '#222020',
+    RED: '#FF4757',
+    DISABLED_COLOR: '#7D7D7D',
+  },
+};
