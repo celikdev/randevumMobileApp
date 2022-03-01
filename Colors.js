@@ -8,7 +8,7 @@ export const COLORS = {
   },
   LIGHT: {
     BACKGROUND: '#F8F8F8',
-    BOX_COLOR: '#F3F3F3',
+    BOX_COLOR: '#E4E4E4',
     TEXT_COLOR: '#222020',
     RED: '#FF4757',
     DISABLED_COLOR: '#7D7D7D',

@@ -5,7 +5,7 @@ import {Category, HeroSection, HowToWorks, Meets} from '../components/Home';
 
 import {StyledContainer} from '../components/main/StyledComponents';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const token = false;
 
   const colorSchema = useColorScheme();
@@ -16,7 +16,7 @@ const Home = () => {
         contentContainerStyle={{alignItems: 'center', paddingBottom: 20}}
         style={{flex: 1}}>
         {token ? <Meets /> : <HeroSection />}
-        <Category />
+        <Category navigation={navigation} />
         <HowToWorks />
       </ScrollView>
     </StyledContainer>

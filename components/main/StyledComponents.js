@@ -109,6 +109,12 @@ const StyledLoginInput = styled.TextInput`
     props.theme == 'light' ? COLORS.LIGHT.TEXT_COLOR : COLORS.DARK.TEXT_COLOR};
 `;
 
+const StyledNotFoundText = styled.Text`
+  font-family: 'Montserrat-SemiBold';
+  font-size: 12px;
+  opacity: 0.6;
+`;
+
 export {
   StyledContainer,
   StyledBox,
@@ -121,4 +127,5 @@ export {
   StyledBusinessName,
   StyledBusinessCategoryName,
   StyledLoginInput,
+  StyledNotFoundText,
 };

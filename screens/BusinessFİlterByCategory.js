@@ -1,28 +1,32 @@
 import React from 'react';
 import {View, Text, useColorScheme} from 'react-native';
-import Business from '../components/Create/Business';
+import FilteredBusiness from '../components/Category/FilteredBusiness';
+
 import {
-  StyledBox,
   StyledContainer,
-  StyledSearchInput,
   StyledTitle,
+  StyledSearchInput,
+  StyledBox,
 } from '../components/main/StyledComponents';
 
-const Create = () => {
+const BusinessFilterByCategory = ({route}) => {
   const colorSchema = useColorScheme();
+
+  const {categoryName} = route.params;
+
   return (
     <StyledContainer theme={colorSchema} style={{paddingVertical: 20}}>
-      <StyledTitle theme={colorSchema}>Oluştur</StyledTitle>
+      <StyledTitle theme={colorSchema}>{categoryName}</StyledTitle>
       <StyledSearchInput
         theme={colorSchema}
         placeholder="Aramak İstediğiniz İşletme Adını Girin"
       />
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>İşletmeler</StyledTitle>
-        <Business />
+        <FilteredBusiness route={route} />
       </StyledBox>
     </StyledContainer>
   );
 };
 
-export default Create;
+export default BusinessFilterByCategory;

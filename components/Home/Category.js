@@ -1,12 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {useColorScheme, View} from 'react-native';
 import {COLORS} from '../../Colors';
 import {API_URL} from '../../config';
 
@@ -27,7 +21,7 @@ import {
   StyledTitle,
 } from '../main/StyledComponents';
 
-const Category = () => {
+const Category = ({navigation}) => {
   const colorSchema = useColorScheme();
 
   const [data, setData] = useState([]);
@@ -138,7 +132,14 @@ const Category = () => {
           flexWrap: 'wrap',
         }}>
         {data.map((category, index) => (
-          <StyledCategoryButton key={index}>
+          <StyledCategoryButton
+            onPress={() =>
+              navigation.push('BusinessFilterByCategory', {
+                categoryID: category._id,
+                categoryName: category.categoryName,
+              })
+            }
+            key={index}>
             <View />
             {SwitchIcon(category.mobileIconName)}
             <StyledCategoryButtonText theme={colorSchema}>

@@ -14,10 +14,13 @@ import {
   StyledBusinessContainer,
   StyledBusinessImage,
   StyledBusinessName,
+  StyledNotFoundText,
 } from '../main/StyledComponents';
 
-const Business = () => {
+const FilteredBusiness = ({route}) => {
   const colorSchema = useColorScheme();
+
+  const {categoryName} = route.params;
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -26,9 +29,13 @@ const Business = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        await axios.get(`${API_URL}/businesses`).then(res => setData(res.data));
+        await axios
+          .post(`${API_URL}/businesses/`, {
+            categoryName: categoryName,
+          })
+          .then(res => setData(res.data));
       } catch (error) {
-        alert('ERROR');
+        alert('Error');
       }
       setLoading(false);
     };
@@ -39,7 +46,7 @@ const Business = () => {
     <View style={{width: '100%', alignItems: 'center'}}>
       {loading ? (
         <ActivityIndicator size={36} color={COLORS.DARK.RED} />
-      ) : (
+      ) : data.length ? (
         data.map((business, index) => (
           <StyledBusinessContainer
             activeOpacity={0.6}
@@ -54,9 +61,13 @@ const Business = () => {
             </StyledBusinessCategoryName>
           </StyledBusinessContainer>
         ))
+      ) : (
+        <StyledNotFoundText>
+          Aradığınız Kriterlerde İşletme Bulunamadı!
+        </StyledNotFoundText>
       )}
     </View>
   );
 };
 
-export default Business;
+export default FilteredBusiness;

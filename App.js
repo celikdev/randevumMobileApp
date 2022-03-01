@@ -4,9 +4,9 @@ import SplashScreen from 'react-native-splash-screen';
 
 import SyncStorage from 'sync-storage';
 
-import {Image, useColorScheme} from 'react-native';
+import {Image, useColorScheme, StatusBar} from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, CommonActions} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {routes} from './Routes';
@@ -35,8 +35,16 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <StatusBar
+        barStyle={colorSchema == 'light' ? 'dark-content' : 'light-content'}
+        backgroundColor={
+          colorSchema == 'light'
+            ? COLORS.LIGHT.BOX_COLOR
+            : COLORS.DARK.BOX_COLOR
+        }
+      />
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{unmountOnBlur: true}}>
           {routes.map((route, index) => (
             <Tab.Screen
               key={index}

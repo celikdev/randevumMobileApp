@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, useColorScheme} from 'react-native';
-import {Box} from '../main';
-import {StyledTitle} from '../main/StyledComponents';
+import {StyledBox, StyledTitle} from '../main/StyledComponents';
 
 const HowToWorks = () => {
   const colorSchema = useColorScheme();
   return (
-    <Box>
+    <StyledBox theme={colorSchema}>
       <StyledTitle theme={colorSchema}>Nasıl Çalışır?</StyledTitle>
-    </Box>
+    </StyledBox>
   );
 };
 

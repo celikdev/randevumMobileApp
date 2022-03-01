@@ -1,6 +1,3 @@
-import React from 'react';
-import SyncStorage from 'sync-storage';
-
 import {
   CreateFocusIcon,
   CreateIcon,
@@ -11,13 +8,14 @@ import {
 } from './Icons';
 import {Create, Home, Login} from './screens';
 import Account from './screens/Account';
+import {HomeStack} from './screens/Stack';
 
 const token = false;
 
 export const routes = [
   {
     name: 'Anasayfa',
-    component: Home,
+    component: HomeStack,
     icon: HomeIcon,
     focusedIcon: HomeFocusedIcon,
   },
