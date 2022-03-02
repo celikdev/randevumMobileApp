@@ -24,7 +24,7 @@ const _renderItem = ({item, index}) => {
 };
 const HeroSection = () => {
   return (
-    <View style={{height: 250, marginBottom: 20}}>
+    <View style={{height: 250}}>
       <Carousel
         loop={true}
         layout={'default'}

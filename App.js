@@ -2,11 +2,9 @@ import React, {useEffect} from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
 
-import SyncStorage from 'sync-storage';
-
 import {Image, useColorScheme, StatusBar} from 'react-native';
 
-import {NavigationContainer, CommonActions} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {routes} from './Routes';
@@ -25,12 +23,6 @@ const App = () => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 1000);
-    async function storageFunction() {
-      const data = await SyncStorage.init();
-      console.log('AsyncStorage is ready!', data);
-    }
-
-    storageFunction();
   }, []);
 
   return (
@@ -67,6 +59,7 @@ const App = () => {
                       : COLORS.DARK.BOX_COLOR,
                 },
                 tabBarLabelStyle: {
+                  paddingBottom: 2,
                   fontFamily: 'Montserrat-SemiBold',
                   color:
                     colorSchema == 'light'

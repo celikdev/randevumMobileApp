@@ -17,14 +17,14 @@ const StyledBox = styled.View`
     props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
   border-radius: 6px;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 40px;
   margin-bottom: 10px;
 `;
 
 const StyledTitle = styled.Text`
+  margin-bottom: 20px;
   font-family: 'Montserrat-SemiBold';
   font-size: 16px;
-  padding-bottom: 10px;
   color: ${props =>
     props.theme == 'light' ? COLORS.LIGHT.TEXT_COLOR : COLORS.DARK.TEXT_COLOR};
 `;
@@ -115,6 +115,24 @@ const StyledNotFoundText = styled.Text`
   opacity: 0.6;
 `;
 
+const StyledRegisterButton = styled.TouchableOpacity`
+  margin-top: 40px;
+  width: 90%;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 6px;
+  background-color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
+`;
+
+const StyledRegisterText = styled.Text`
+  font-family: 'Montserrat-SemiBold';
+  font-size: 12px;
+  color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.TEXT_COLOR : COLORS.DARK.TEXT_COLOR};
+`;
+
 export {
   StyledContainer,
   StyledBox,
@@ -128,4 +146,6 @@ export {
   StyledBusinessCategoryName,
   StyledLoginInput,
   StyledNotFoundText,
+  StyledRegisterButton,
+  StyledRegisterText,
 };

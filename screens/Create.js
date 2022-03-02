@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import Business from '../components/Create/Business';
 import {
   StyledBox,
@@ -8,7 +8,7 @@ import {
   StyledTitle,
 } from '../components/main/StyledComponents';
 
-const Create = () => {
+const Create = ({navigation}) => {
   const colorSchema = useColorScheme();
   return (
     <StyledContainer theme={colorSchema} style={{paddingVertical: 20}}>
@@ -19,7 +19,7 @@ const Create = () => {
       />
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>İşletmeler</StyledTitle>
-        <Business />
+        <Business navigation={navigation} />
       </StyledBox>
     </StyledContainer>
   );

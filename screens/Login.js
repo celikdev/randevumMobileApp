@@ -1,15 +1,18 @@
-import axios from 'axios';
 import React, {useState} from 'react';
-import SyncStorage from 'sync-storage';
+import axios from 'axios';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {API_URL} from '../config';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 import {
-  View,
   Text,
   useColorScheme,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {COLORS} from '../Colors';
 
@@ -17,24 +20,35 @@ import {
   StyledBox,
   StyledContainer,
   StyledLoginInput,
+  StyledRegisterButton,
+  StyledRegisterText,
   StyledTitle,
 } from '../components/main/StyledComponents';
 
-const Login = props => {
+const Login = ({navigation}) => {
   const colorSchema = useColorScheme();
 
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const userToken = AsyncStorage.getItem('userToken');
+  console.log(userToken);
+
   const handleLogin = () => {
+    setLoading(true);
     axios
       .post(`${API_URL}/auth/login`, {
         userEmail: email,
         userPassword: password,
       })
-      .then(res => {
-        SyncStorage.set('token', res.data.token);
-        props.navigation.navigate('Anasayfa');
+      .then(async res => {
+        await AsyncStorage.setItem('userToken', res.data.token);
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log('hata');
       });
   };
 
@@ -42,7 +56,6 @@ const Login = props => {
     <StyledContainer theme={colorSchema}>
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>Giriş Yap</StyledTitle>
-        <TextInput theme={colorSchema} onChangeText={text => setEmail(text)} />
         <StyledLoginInput
           placeholderTextColor={
             colorSchema == 'light'
@@ -69,13 +82,17 @@ const Login = props => {
           autoCapitalize="none"
           placeholder="Şifre"
         />
-        <Text>{email}</Text>
         <TouchableOpacity
+          disabled={loading}
           onPress={() => handleLogin()}
           style={{
             width: '30%',
             borderWidth: 2,
-            borderColor: COLORS.DARK.RED,
+            borderColor: loading
+              ? colorSchema == 'light'
+                ? COLORS.LIGHT.DISABLED_COLOR
+                : COLORS.DARK.DISABLED_COLOR
+              : COLORS.DARK.RED,
             alignItems: 'center',
             paddingVertical: 8,
             borderRadius: 6,
@@ -88,10 +105,21 @@ const Login = props => {
                   ? COLORS.LIGHT.TEXT_COLOR
                   : COLORS.DARK.TEXT_COLOR,
             }}>
-            Giriş Yap
+            {loading ? (
+              <ActivityIndicator color={COLORS.DARK.RED} />
+            ) : (
+              'Giriş Yap'
+            )}
           </Text>
         </TouchableOpacity>
       </StyledBox>
+      <StyledRegisterButton
+        onPress={() => navigation.navigate('Register')}
+        theme={colorSchema}>
+        <StyledRegisterText theme={colorSchema}>
+          Hemen Kayıt Ol
+        </StyledRegisterText>
+      </StyledRegisterButton>
     </StyledContainer>
   );
 };

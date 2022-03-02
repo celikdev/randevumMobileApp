@@ -6,11 +6,8 @@ import {
   UserFocusedIcon,
   UserIcon,
 } from './Icons';
-import {Create, Home, Login} from './screens';
-import Account from './screens/Account';
-import {HomeStack} from './screens/Stack';
 
-const token = false;
+import {HomeStack, CreateStack, LoginStack} from './screens/Stack';
 
 export const routes = [
   {
@@ -21,13 +18,13 @@ export const routes = [
   },
   {
     name: 'Oluştur',
-    component: Create,
+    component: CreateStack,
     icon: CreateIcon,
     focusedIcon: CreateFocusIcon,
   },
   {
     name: 'Hesap',
-    component: token ? Account : Login,
+    component: LoginStack,
     icon: UserIcon,
     focusedIcon: UserFocusedIcon,
   },

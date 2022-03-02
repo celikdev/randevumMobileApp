@@ -49,6 +49,7 @@ const FilteredBusiness = ({route}) => {
       ) : data.length ? (
         data.map((business, index) => (
           <StyledBusinessContainer
+            onPress={() => alert('asd')}
             activeOpacity={0.6}
             theme={colorSchema}
             key={index}>

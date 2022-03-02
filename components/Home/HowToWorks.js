@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {StyledBox, StyledTitle} from '../main/StyledComponents';
 
 const HowToWorks = () => {

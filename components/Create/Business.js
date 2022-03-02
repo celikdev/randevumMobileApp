@@ -16,7 +16,7 @@ import {
   StyledBusinessName,
 } from '../main/StyledComponents';
 
-const Business = () => {
+const Business = ({navigation}) => {
   const colorSchema = useColorScheme();
 
   const [loading, setLoading] = useState(false);
@@ -42,6 +42,9 @@ const Business = () => {
       ) : (
         data.map((business, index) => (
           <StyledBusinessContainer
+            onPress={() =>
+              navigation.navigate('BusinessPage', {businessID: business._id})
+            }
             activeOpacity={0.6}
             theme={colorSchema}
             key={index}>

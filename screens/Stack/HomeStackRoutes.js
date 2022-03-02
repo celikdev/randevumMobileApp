@@ -1,6 +1,6 @@
 import {BusinessFilterByCategory, Home} from '..';
 
-export const stackRoutes = [
+export const homeStackRoutes = [
   {
     name: 'Home',
     component: Home,

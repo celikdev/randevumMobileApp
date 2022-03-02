@@ -9,7 +9,7 @@ import {
   StyledBox,
 } from '../components/main/StyledComponents';
 
-const BusinessFilterByCategory = ({route}) => {
+const BusinessFilterByCategory = ({route, navigation}) => {
   const colorSchema = useColorScheme();
 
   const {categoryName} = route.params;
@@ -23,7 +23,7 @@ const BusinessFilterByCategory = ({route}) => {
       />
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>İşletmeler</StyledTitle>
-        <FilteredBusiness route={route} />
+        <FilteredBusiness route={route} navigation={navigation} />
       </StyledBox>
     </StyledContainer>
   );

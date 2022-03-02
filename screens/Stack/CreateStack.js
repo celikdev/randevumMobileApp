@@ -1,17 +1,14 @@
 import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import {homeStackRoutes} from './HomeStackRoutes';
+import {createStackRoutes} from './CreateStackRoutes';
 
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const CreateStack = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{headerShown: false, animation: 'none'}}>
-      {homeStackRoutes.map((routes, index) => (
+    <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
+      {createStackRoutes.map((routes, index) => (
         <Stack.Screen
           name={routes.name}
           component={routes.component}
@@ -22,4 +19,4 @@ const HomeStack = () => {
   );
 };
 
-export default HomeStack;
+export default CreateStack;
