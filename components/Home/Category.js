@@ -137,7 +137,9 @@ const Category = ({navigation}) => {
           flexWrap: 'wrap',
         }}>
         {loading ? (
-          <ActivityIndicator color={COLORS.DARK.RED} />
+          <View style={{width: '100%'}}>
+            <ActivityIndicator size={26} color={COLORS.DARK.RED} />
+          </View>
         ) : (
           data.map((category, index) => (
             <StyledCategoryButton

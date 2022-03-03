@@ -18,7 +18,6 @@ const StyledBox = styled.View`
   border-radius: 6px;
   padding: 10px;
   margin-top: 40px;
-  margin-bottom: 10px;
 `;
 
 const StyledTitle = styled.Text`
