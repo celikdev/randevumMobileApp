@@ -10,9 +10,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   Text,
   useColorScheme,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import {COLORS} from '../Colors';
 
@@ -32,9 +32,6 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const userToken = AsyncStorage.getItem('userToken');
-  console.log(userToken);
-
   const handleLogin = () => {
     setLoading(true);
     axios
@@ -42,9 +39,10 @@ const Login = ({navigation}) => {
         userEmail: email,
         userPassword: password,
       })
-      .then(async res => {
-        await AsyncStorage.setItem('userToken', res.data.token);
+      .then(res => {
+        storeData(res.data);
         setLoading(false);
+        navigation.navigate('Anasayfa');
       })
       .catch(err => {
         setLoading(false);
@@ -52,8 +50,26 @@ const Login = ({navigation}) => {
       });
   };
 
+  const storeData = async authResponse => {
+    try {
+      await AsyncStorage.setItem('userToken', authResponse.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const writeConsole = async () => {
+    try {
+      const data = await AsyncStorage.getItem('userToken');
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <StyledContainer theme={colorSchema}>
+      <Button title="asdadsdasd" onPress={() => writeConsole()} />
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>Giriş Yap</StyledTitle>
         <StyledLoginInput

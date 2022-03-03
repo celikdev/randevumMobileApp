@@ -11,13 +11,13 @@ const StyledContainer = styled.View`
 `;
 
 const StyledBox = styled.View`
-  width: 90%;
+  width: 80%;
   align-items: center;
   background-color: ${props =>
     props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
   border-radius: 6px;
   padding: 10px;
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 const StyledTitle = styled.Text`
@@ -132,6 +132,15 @@ const StyledRegisterText = styled.Text`
     props.theme == 'light' ? COLORS.LIGHT.TEXT_COLOR : COLORS.DARK.TEXT_COLOR};
 `;
 
+const StyledMeetsBox = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-top: 30px;
+  padding: 10px;
+  background-color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
+`;
+
 export {
   StyledContainer,
   StyledBox,
@@ -147,4 +156,5 @@ export {
   StyledNotFoundText,
   StyledRegisterButton,
   StyledRegisterText,
+  StyledMeetsBox,
 };
