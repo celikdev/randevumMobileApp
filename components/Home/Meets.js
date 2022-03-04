@@ -1,39 +1,79 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
+  useColorScheme,
+  ActivityIndicator,
+  ScrollView,
   View,
   Text,
-  useColorScheme,
-  ScrollView,
   FlatList,
-  Button,
 } from 'react-native';
-import {StyledMeetsBox, StyledTitle} from '../main/StyledComponents';
+import {useSelector} from 'react-redux';
+import {COLORS} from '../../Colors';
+import {API_URL} from '../../config';
+import {
+  StyledMeetsBox,
+  StyledMeetsCard,
+  StyledMeetsText,
+  StyledTitle,
+} from '../main/StyledComponents';
+
+import {MeetScroll} from './UI';
 
 const Meets = () => {
   const colorSchema = useColorScheme();
 
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
+  const token = useSelector(state => state.userData.userData);
 
-  const renderItem = ({item}) => (
-    <Text style={{width: '50%'}}>{item.title}</Text>
-  );
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${API_URL}/meets`, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(res => setData(res.data))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <StyledMeetsBox theme={colorSchema}>
-      <StyledTitle>Aktif Randevular</StyledTitle>
+      <StyledTitle theme={colorSchema}>Aktif Randevular</StyledTitle>
+      {loading ? (
+        <ActivityIndicator size={26} color={COLORS.DARK.RED} />
+      ) : (
+        <View style={{flex: 1}}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={{paddingHorizontal: 16}}>
+            {data.map((meet, index) => (
+              <StyledMeetsCard
+                theme={colorSchema}
+                style={{
+                  marginHorizontal: 8,
+                  padding: 8,
+                  paddingVertical: 12,
+                }}
+                key={index}>
+                <StyledMeetsText theme={colorSchema}>
+                  {meet.businessName}
+                </StyledMeetsText>
+                <StyledMeetsText theme={colorSchema}>
+                  {meet.date}
+                </StyledMeetsText>
+                <StyledMeetsText theme={colorSchema}>
+                  {meet.clock}
+                </StyledMeetsText>
+              </StyledMeetsCard>
+            ))}
+          </ScrollView>
+        </View>
+      )}
     </StyledMeetsBox>
   );
 };

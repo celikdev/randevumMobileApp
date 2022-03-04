@@ -1,11 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const readUserToken = async props => {
-  const {setToken} = props;
-  try {
-    const data = await AsyncStorage.getItem('userToken');
-    setToken(data);
-  } catch (error) {
-    console.log(error);
-  }
+import {setData} from '../redux/slices/UserSlices';
+
+const readUserToken = async props => {
+  const data = await AsyncStorage.getItem('userToken');
+  props(setData(data));
 };
+
+export {readUserToken};

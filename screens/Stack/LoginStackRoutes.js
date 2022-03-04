@@ -1,16 +1,8 @@
-import {Account, Login, Register} from '..';
+import {Register} from '..';
 
 export const loginStackRoutes = [
   {
-    name: 'Login',
-    component: Login,
-  },
-  {
     name: 'Register',
     component: Register,
-  },
-  {
-    name: 'Account',
-    component: Account,
   },
 ];

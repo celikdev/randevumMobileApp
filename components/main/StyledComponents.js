@@ -141,6 +141,26 @@ const StyledMeetsBox = styled.View`
     props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
 `;
 
+const StyledMeetsCard = styled.TouchableOpacity`
+  background-color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};
+  width: 100px;
+  height: 110px;
+  justify-content: space-between;
+  align-items: center;
+  border-width: 2px;
+  border-radius: 6px;
+  border-color: ${COLORS.DARK.RED};
+`;
+
+const StyledMeetsText = styled.Text`
+  font-family: 'Montserrat-SemiBold';
+  font-size: 12px;
+  color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.TEXT_COLOR : COLORS.DARK.TEXT_COLOR};
+  text-align: center;
+`;
+
 export {
   StyledContainer,
   StyledBox,
@@ -157,4 +177,6 @@ export {
   StyledRegisterButton,
   StyledRegisterText,
   StyledMeetsBox,
+  StyledMeetsCard,
+  StyledMeetsText,
 };

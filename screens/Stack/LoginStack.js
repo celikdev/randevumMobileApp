@@ -6,11 +6,16 @@ import {loginStackRoutes} from './LoginStackRoutes';
 
 const Stack = createNativeStackNavigator();
 
+import {Login, Account} from '../';
+import {useSelector} from 'react-redux';
+
 const LoginStack = () => {
+  const token = useSelector(state => state.userData.userData);
   return (
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{headerShown: false, animation: 'none'}}>
+      <Stack.Screen name="Login" component={token ? Account : Login} />
       {loginStackRoutes.map((routes, index) => (
         <Stack.Screen
           name={routes.name}

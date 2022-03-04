@@ -58,18 +58,8 @@ const Login = ({navigation}) => {
     }
   };
 
-  const writeConsole = async () => {
-    try {
-      const data = await AsyncStorage.getItem('userToken');
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <StyledContainer theme={colorSchema}>
-      <Button title="asdadsdasd" onPress={() => writeConsole()} />
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>Giriş Yap</StyledTitle>
         <StyledLoginInput
