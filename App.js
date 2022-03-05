@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 
-import SplashScreen from 'react-native-splash-screen';
-
 import {Image, useColorScheme, StatusBar} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -11,22 +9,15 @@ import {routes} from './Routes';
 
 import {COLORS} from './Colors';
 
-import {Provider} from 'react-redux';
-import {store} from './redux/store';
+import {NotificationBell} from './components/main';
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   const colorSchema = useColorScheme();
 
-  useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 1000);
-  }, []);
-
   return (
-    <Provider store={store}>
+    <>
       <StatusBar
         barStyle={colorSchema == 'light' ? 'dark-content' : 'light-content'}
         backgroundColor={
@@ -42,6 +33,7 @@ const App = () => {
               key={index}
               options={{
                 headerTitleAlign: 'center',
+                headerRight: () => <NotificationBell />,
                 headerTitle: () => (
                   <Image
                     style={{
@@ -104,7 +96,7 @@ const App = () => {
           ))}
         </Tab.Navigator>
       </NavigationContainer>
-    </Provider>
+    </>
   );
 };
 

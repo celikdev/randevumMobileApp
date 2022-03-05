@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   userData: '',
+  notification: [],
 };
 
 export const userSlice = createSlice({
@@ -11,9 +12,12 @@ export const userSlice = createSlice({
     setData: (state, actions) => {
       state.userData = actions.payload;
     },
+    setNotification: state => {
+      state.notification += 1;
+    },
   },
 });
 
-export const {setData} = userSlice.actions;
+export const {setData, setNotification} = userSlice.actions;
 
 export default userSlice.reducer;

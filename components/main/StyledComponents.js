@@ -110,7 +110,7 @@ const StyledLoginInput = styled.TextInput`
 
 const StyledNotFoundText = styled.Text`
   font-family: 'Montserrat-SemiBold';
-  font-size: 12px;
+  font-size: 10px;
   opacity: 0.6;
 `;
 
