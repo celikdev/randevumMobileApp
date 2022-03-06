@@ -6,6 +6,8 @@ import Account from './Account';
 import BusinessFilterByCategory from './BusinessFİlterByCategory';
 import BusinessPage from './BusinessPage';
 
+import ForgotPassword from './ForgotPassword';
+
 export {
   Home,
   Create,
@@ -14,4 +16,5 @@ export {
   Account,
   BusinessFilterByCategory,
   BusinessPage,
+  ForgotPassword,
 };

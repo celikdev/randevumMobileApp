@@ -1,13 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {View, Text, useColorScheme, TouchableOpacity} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {COLORS} from '../Colors';
+import {setData} from '../redux/slices/UserSlices';
 
 const Account = ({navigation}) => {
   const colorSchema = useColorScheme();
 
+  const dispatch = useDispatch();
+
   const handleLogOut = async () => {
     await AsyncStorage.removeItem('userToken');
+    dispatch(setData(''));
     navigation.navigate('Anasayfa');
   };
 

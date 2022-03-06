@@ -5,14 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {API_URL} from '../config';
 
-import {useDispatch, useSelector} from 'react-redux';
-
 import {
   Text,
   useColorScheme,
   TouchableOpacity,
   ActivityIndicator,
-  Button,
 } from 'react-native';
 import {COLORS} from '../Colors';
 
@@ -29,8 +26,8 @@ const Login = ({navigation}) => {
   const colorSchema = useColorScheme();
 
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('celikhakan5255@gmail.com');
+  const [password, setPassword] = useState('123');
 
   const handleLogin = () => {
     setLoading(true);
@@ -44,7 +41,7 @@ const Login = ({navigation}) => {
         setLoading(false);
         navigation.navigate('Anasayfa');
       })
-      .catch(err => {
+      .catch(() => {
         setLoading(false);
         console.log('hata');
       });
@@ -92,7 +89,7 @@ const Login = ({navigation}) => {
           disabled={loading}
           onPress={() => handleLogin()}
           style={{
-            width: '30%',
+            width: '35%',
             borderWidth: 2,
             borderColor: loading
               ? colorSchema == 'light'
@@ -116,6 +113,26 @@ const Login = ({navigation}) => {
             ) : (
               'Giriş Yap'
             )}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ForgotPassword')}
+          style={{
+            marginTop: 24,
+            marginVertical: 16,
+            padding: 4,
+          }}>
+          <Text
+            style={{
+              fontFamily: 'Montserrat-SemiBold',
+              textAlign: 'center',
+              fontSize: 12,
+              color:
+                colorSchema == 'light'
+                  ? COLORS.LIGHT.TEXT_COLOR
+                  : COLORS.DARK.TEXT_COLOR,
+            }}>
+            Şifremi Unuttum
           </Text>
         </TouchableOpacity>
       </StyledBox>

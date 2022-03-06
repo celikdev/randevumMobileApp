@@ -11,6 +11,7 @@ import {readUserToken} from '../storage/Storage';
 
 const Home = ({navigation}) => {
   const token = useSelector(state => state.userData.userData);
+
   const colorSchema = useColorScheme();
   const dispatch = useDispatch();
 
