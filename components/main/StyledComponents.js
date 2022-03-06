@@ -11,7 +11,7 @@ const StyledContainer = styled.View`
 `;
 
 const StyledBox = styled.View`
-  width: 80%;
+  width: 90%;
   align-items: center;
   background-color: ${props =>
     props.theme == 'light' ? COLORS.LIGHT.BOX_COLOR : COLORS.DARK.BOX_COLOR};

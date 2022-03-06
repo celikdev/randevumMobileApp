@@ -1,20 +1,44 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import {Image, useColorScheme, StatusBar} from 'react-native';
+import {useColorScheme, StatusBar, Image} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {routes} from './Routes';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {COLORS} from './Colors';
 
 import {NotificationBell} from './components/main';
 
-const Tab = createBottomTabNavigator();
+import {routes} from './Routes';
+
+import axios from 'axios';
+import {API_URL} from './config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {setNotification} from './redux/slices/UserSlices';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const colorSchema = useColorScheme();
+  const dispatch = useDispatch();
+
+  const getNotifications = async () => {
+    const token = await AsyncStorage.getItem('userToken');
+
+    axios
+      .get(`${API_URL}/notifications`, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(res => dispatch(setNotification(res.data)));
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
 
   return (
     <>
@@ -27,74 +51,35 @@ const App = () => {
         }
       />
       <NavigationContainer>
-        <Tab.Navigator screenOptions={{unmountOnBlur: true}}>
+        <Stack.Navigator
+          screenOptions={({navigation}) => ({
+            headerTitleAlign: 'center',
+            headerRight: () => <NotificationBell navigation={navigation} />,
+            headerTitle: () => (
+              <Image
+                style={{
+                  width: 44,
+                  height: 44,
+                }}
+                source={require('./assets/icon/randevum-30.png')}
+              />
+            ),
+            headerStyle: {
+              shadowColor: '#222020',
+              backgroundColor:
+                colorSchema == 'light'
+                  ? COLORS.LIGHT.BOX_COLOR
+                  : COLORS.DARK.BOX_COLOR,
+            },
+          })}>
           {routes.map((route, index) => (
-            <Tab.Screen
+            <Stack.Screen
               key={index}
-              options={{
-                headerTitleAlign: 'center',
-                headerRight: () => <NotificationBell />,
-                headerTitle: () => (
-                  <Image
-                    style={{
-                      width: 44,
-                      height: 44,
-                    }}
-                    source={require('./assets/icon/randevum-30.png')}
-                  />
-                ),
-                headerStyle: {
-                  shadowColor: '#222020',
-                  backgroundColor:
-                    colorSchema == 'light'
-                      ? COLORS.LIGHT.BOX_COLOR
-                      : COLORS.DARK.BOX_COLOR,
-                },
-                tabBarLabelStyle: {
-                  paddingBottom: 2,
-                  fontFamily: 'Montserrat-SemiBold',
-                  color:
-                    colorSchema == 'light'
-                      ? COLORS.LIGHT.TEXT_COLOR
-                      : COLORS.DARK.TEXT_COLOR,
-                },
-                tabBarHideOnKeyboard: true,
-                tabBarStyle: {
-                  height: 52,
-                  borderTopWidth: 0,
-                  backgroundColor:
-                    colorSchema == 'light'
-                      ? COLORS.LIGHT.BOX_COLOR
-                      : COLORS.DARK.BOX_COLOR,
-                },
-                tabBarIcon: ({focused, color}) =>
-                  focused ? (
-                    <route.focusedIcon
-                      width={30}
-                      height={30}
-                      color={
-                        colorSchema == 'light'
-                          ? COLORS.LIGHT.TEXT_COLOR
-                          : COLORS.DARK.TEXT_COLOR
-                      }
-                    />
-                  ) : (
-                    <route.icon
-                      width={30}
-                      height={30}
-                      color={
-                        colorSchema == 'light'
-                          ? COLORS.LIGHT.DISABLED_COLOR
-                          : COLORS.DARK.DISABLED_COLOR
-                      }
-                    />
-                  ),
-              }}
               name={route.name}
               component={route.component}
             />
           ))}
-        </Tab.Navigator>
+        </Stack.Navigator>
       </NavigationContainer>
     </>
   );

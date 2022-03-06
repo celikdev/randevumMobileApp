@@ -5,20 +5,16 @@ import {NotificationIcon} from '../../Icons';
 
 import {COLORS} from '../../Colors';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-import {setNotification} from '../../redux/slices/UserSlices';
-
-const NotificationBell = () => {
+const NotificationBell = ({navigation}) => {
   const colorSchema = useColorScheme();
-
-  const dispatch = useDispatch();
 
   const notification = useSelector(state => state.userData.notification);
 
   return (
     <TouchableOpacity
-      onPress={() => dispatch(setNotification())}
+      onPress={() => navigation.navigate('Notifications')}
       activeOpacity={0.6}
       hitSlop={{top: 16, left: 16, right: 16, bottom: 16}}
       style={{
@@ -26,7 +22,7 @@ const NotificationBell = () => {
         justifyContent: 'center',
         position: 'relative',
       }}>
-      {notification > 0 ? (
+      {notification.length ? (
         <View
           style={{
             top: 2,

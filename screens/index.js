@@ -8,6 +8,8 @@ import BusinessPage from './BusinessPage';
 
 import ForgotPassword from './ForgotPassword';
 
+import Notifications from './Notifications';
+
 export {
   Home,
   Create,
@@ -17,4 +19,5 @@ export {
   BusinessFilterByCategory,
   BusinessPage,
   ForgotPassword,
+  Notifications,
 };

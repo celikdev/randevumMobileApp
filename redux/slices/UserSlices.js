@@ -12,8 +12,8 @@ export const userSlice = createSlice({
     setData: (state, actions) => {
       state.userData = actions.payload;
     },
-    setNotification: state => {
-      state.notification += 1;
+    setNotification: (state, actions) => {
+      state.notification = actions.payload;
     },
   },
 });

@@ -1,31 +1,14 @@
-import {
-  CreateFocusIcon,
-  CreateIcon,
-  HomeFocusedIcon,
-  HomeIcon,
-  UserFocusedIcon,
-  UserIcon,
-} from './Icons';
+import {TabNavigationContainer} from './screens/TabNavigator';
 
-import {HomeStack, CreateStack, LoginStack} from './screens/Stack';
+import {Notifications} from './screens';
 
 export const routes = [
   {
-    name: 'Anasayfa',
-    component: HomeStack,
-    icon: HomeIcon,
-    focusedIcon: HomeFocusedIcon,
+    name: 'TabContainer',
+    component: TabNavigationContainer,
   },
   {
-    name: 'Oluştur',
-    component: CreateStack,
-    icon: CreateIcon,
-    focusedIcon: CreateFocusIcon,
-  },
-  {
-    name: 'Hesap',
-    component: LoginStack,
-    icon: UserIcon,
-    focusedIcon: UserFocusedIcon,
+    name: 'Notifications',
+    component: Notifications,
   },
 ];
