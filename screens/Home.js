@@ -29,7 +29,7 @@ const Home = ({navigation}) => {
           paddingBottom: 20,
         }}
         style={{flex: 1, width: '100%'}}>
-        {token ? <Meets /> : <HeroSection />}
+        {token ? <Meets navigation={navigation} /> : <HeroSection />}
         <Category navigation={navigation} />
         <HowToWorks />
       </ScrollView>

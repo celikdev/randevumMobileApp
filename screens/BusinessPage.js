@@ -1,8 +1,15 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Text, useColorScheme} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  useColorScheme,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 
 import City from '../City';
+import {COLORS} from '../Colors';
 
 import {
   StyledBox,
@@ -21,10 +28,14 @@ const BusinessPage = ({route}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/businesses/${businessID}`)
-      .then(res => setData(res.data))
-      .catch(() => alert('Business Error'));
+    try {
+      axios
+        .get(`${API_URL}/businesses/${businessID}`)
+        .then(res => setData(res.data))
+        .catch(() => alert('Business Error'));
+    } catch (error) {
+      alert(error);
+    }
   }, []);
 
   return (

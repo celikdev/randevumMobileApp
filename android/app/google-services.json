@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443887146586",
+    "project_id": "randevum-5d873",
+    "storage_bucket": "randevum-5d873.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443887146586:android:14a22d2085f41cc2ad2a63",
+        "android_client_info": {
+          "package_name": "com.randevumreactmobil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443887146586-m3tllbug3on8td2o05jlua8073nb06pu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrHQQlYJbt071yNoS0aHkSXUYn_gQ_xbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443887146586-m3tllbug3on8td2o05jlua8073nb06pu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

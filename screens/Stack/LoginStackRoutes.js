@@ -1,4 +1,4 @@
-import {Register} from '..';
+import {Register, AccountMeets} from '..';
 import ForgotPassword from '../ForgotPassword';
 
 export const loginStackRoutes = [
@@ -9,5 +9,9 @@ export const loginStackRoutes = [
   {
     name: 'ForgotPassword',
     component: ForgotPassword,
+  },
+  {
+    name: 'AccountMeets',
+    component: AccountMeets,
   },
 ];

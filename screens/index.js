@@ -10,6 +10,8 @@ import ForgotPassword from './ForgotPassword';
 
 import Notifications from './Notifications';
 
+import AccountMeets from './AccountMeets';
+
 export {
   Home,
   Create,
@@ -20,4 +22,5 @@ export {
   BusinessPage,
   ForgotPassword,
   Notifications,
+  AccountMeets,
 };

@@ -18,9 +18,7 @@ import {
   StyledTitle,
 } from '../main/StyledComponents';
 
-import {MeetScroll} from './UI';
-
-const Meets = () => {
+const Meets = ({navigation}) => {
   const colorSchema = useColorScheme();
 
   const token = useSelector(state => state.userData.userData);
@@ -53,6 +51,12 @@ const Meets = () => {
             contentContainerStyle={{paddingHorizontal: 16}}>
             {data.map((meet, index) => (
               <StyledMeetsCard
+                onPress={() =>
+                  navigation.navigate('Hesap', {
+                    screen: 'AccountMeets',
+                    initial: false,
+                  })
+                }
                 theme={colorSchema}
                 style={{
                   marginHorizontal: 8,

@@ -38,6 +38,19 @@ const Account = ({navigation}) => {
           Çıkış Yap
         </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('AccountMeets')}
+        style={{paddingTop: 24}}>
+        <Text
+          style={{
+            color: '#FFFFFF',
+            fontSize: 26,
+            fontFamily: 'Montserrat-SemiBold',
+          }}>
+          MyMeets
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
