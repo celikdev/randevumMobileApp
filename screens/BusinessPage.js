@@ -1,12 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  useColorScheme,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import {TouchableOpacity, Text, useColorScheme, ScrollView} from 'react-native';
 
 import City from '../City';
 import {COLORS} from '../Colors';
@@ -38,6 +32,9 @@ const BusinessPage = ({route}) => {
     }
   }, []);
 
+  const meetDate = ['11.03.2022', '12.03.2022', '13.03.2022'];
+  const [selectedDate, setSelectedDate] = useState('');
+
   return (
     <StyledContainer theme={colorSchema}>
       <StyledBox theme={colorSchema}>
@@ -55,6 +52,50 @@ const BusinessPage = ({route}) => {
             : ''}{' '}
           / {data.businessCountry ? City[data.businessCountry - 1].name : null}
         </StyledBusinessCategoryName>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{
+            marginTop: 24,
+            width: '100%',
+            flexDirection: 'row',
+          }}>
+          {meetDate.map(date => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setSelectedDate(date)}
+              style={{
+                backgroundColor:
+                  selectedDate == date
+                    ? colorSchema == 'light'
+                      ? COLORS.LIGHT.TEXT_COLOR
+                      : COLORS.DARK.TEXT_COLOR
+                    : null,
+                borderWidth: 2,
+                paddingVertical: 8,
+                paddingHorizontal: 24,
+                borderColor:
+                  selectedDate == date ? 'transparent' : COLORS.DARK.RED,
+                marginHorizontal: 8,
+                borderRadius: 6,
+              }}>
+              <Text
+                style={{
+                  fontFamily: 'Montserrat-SemiBold',
+                  color:
+                    selectedDate == date
+                      ? colorSchema == 'light'
+                        ? COLORS.LIGHT.BACKGROUND
+                        : COLORS.DARK.BACKGROUND
+                      : colorSchema == 'light'
+                      ? COLORS.LIGHT.TEXT_COLOR
+                      : COLORS.DARK.TEXT_COLOR,
+                }}>
+                {date}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </StyledBox>
     </StyledContainer>
   );
