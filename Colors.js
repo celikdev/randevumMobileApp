@@ -4,7 +4,7 @@ export const COLORS = {
     BOX_COLOR: '#202020',
     TEXT_COLOR: '#F0FFFF',
     RED: '#FF4757',
-    DISABLED_COLOR: '#DCDCDC',
+    DISABLED_COLOR: '#7D7D7D',
   },
   LIGHT: {
     BACKGROUND: '#F8F8F8',

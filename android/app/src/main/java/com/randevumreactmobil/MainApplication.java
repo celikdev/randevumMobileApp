@@ -6,6 +6,7 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.thebylito.navigationbarcolor.NavigationBarColorPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
