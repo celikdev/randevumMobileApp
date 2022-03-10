@@ -1,6 +1,14 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, Text, useColorScheme, ScrollView} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  useColorScheme,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
+
+import {useSelector} from 'react-redux';
 
 import City from '../City';
 import {COLORS} from '../Colors';
@@ -14,28 +22,75 @@ import {
 } from '../components/main/StyledComponents';
 import {API_URL} from '../config';
 
-const BusinessPage = ({route}) => {
+const BusinessPage = ({route, navigation}) => {
   const {businessID} = route.params;
 
   const colorSchema = useColorScheme();
 
+  const token = useSelector(state => state.userData.userData);
+
   const [data, setData] = useState([]);
 
+  const [doluSaat, setDoluSaat] = useState([]);
+
   useEffect(() => {
-    try {
-      axios
-        .get(`${API_URL}/businesses/${businessID}`)
+    const fetchBusinessData = async () => {
+      await axios
+        .get(`${API_URL}/businesses/${businessID}`, {
+          headers: {Authorization: 'Bearer ' + token},
+        })
         .then(res => setData(res.data))
         .catch(() => alert('Business Error'));
-    } catch (error) {
-      alert(error);
-    }
+      await axios
+        .get(`${API_URL}/meets/business/${businessID}`)
+        .then(res =>
+          res.data.map(meet =>
+            setDoluSaat(before => [
+              ...before,
+              {clock: meet.clock, date: meet.date},
+            ]),
+          ),
+        )
+        .catch(() => alert('Business Error'));
+    };
+
+    fetchBusinessData();
   }, []);
+
+  const [loading, setLoading] = useState(false);
 
   const meetDate = ['11.03.2022', '12.03.2022', '13.03.2022'];
   const meetTime = ['08:30', '09:30', '10:30', '11:30', '12:30', '13:30'];
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+
+  //TODO:Randevu Oluşturma Eklenecek
+
+  const handleCreate = () => {
+    setLoading(true);
+    axios
+      .post(
+        `${API_URL}/meets`,
+        {
+          businessID,
+          businessName: data.businessName,
+          date: selectedDate,
+          clock: selectedTime,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+      .then(() => alert('Meet Successfully Created'))
+      .catch(e => alert(e))
+      .finally(() => {
+        setLoading(false);
+        setSelectedDate(''), setSelectedTime('');
+        navigation.navigate('Anasayfa');
+      });
+  };
 
   return (
     <StyledContainer theme={colorSchema}>
@@ -111,6 +166,13 @@ const BusinessPage = ({route}) => {
           }}>
           {meetTime.map((time, index) => (
             <TouchableOpacity
+              disabled={doluSaat.find(saat =>
+                saat.date == selectedDate
+                  ? saat.clock == meetTime
+                    ? console.log(true)
+                    : console.log(false)
+                  : null,
+              )}
               key={index}
               activeOpacity={0.8}
               onPress={() => setSelectedTime(time === selectedTime ? '' : time)}
@@ -148,12 +210,15 @@ const BusinessPage = ({route}) => {
         </ScrollView>
 
         <TouchableOpacity
-          disabled={!selectedDate || !selectedTime}
+          onPress={() => handleCreate()}
+          disabled={!selectedDate || !selectedTime || loading}
           style={{
             marginTop: 24,
+            width: '30%',
+            alignItems: 'center',
             borderWidth: 2,
             borderColor:
-              !selectedDate || !selectedTime
+              !selectedDate || !selectedTime || loading
                 ? COLORS.DARK.DISABLED_COLOR
                 : COLORS.DARK.RED,
             paddingHorizontal: 20,
@@ -166,16 +231,20 @@ const BusinessPage = ({route}) => {
                   : COLORS.DARK.DISABLED_COLOR
                 : null,
           }}>
-          <Text
-            style={{
-              fontFamily: 'Montserrat-SemiBold',
-              color:
-                colorSchema == 'light'
-                  ? COLORS.LIGHT.TEXT_COLOR
-                  : COLORS.DARK.TEXT_COLOR,
-            }}>
-            Oluştur
-          </Text>
+          {loading ? (
+            <ActivityIndicator size={20} color={COLORS.DARK.RED} />
+          ) : (
+            <Text
+              style={{
+                fontFamily: 'Montserrat-SemiBold',
+                color:
+                  colorSchema == 'light'
+                    ? COLORS.LIGHT.TEXT_COLOR
+                    : COLORS.DARK.TEXT_COLOR,
+              }}>
+              Oluştur
+            </Text>
+          )}
         </TouchableOpacity>
       </StyledBox>
     </StyledContainer>

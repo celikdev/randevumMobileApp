@@ -6,7 +6,7 @@ import {
   ScrollView,
   View,
   Text,
-  FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS} from '../../Colors';
@@ -43,7 +43,7 @@ const Meets = ({navigation}) => {
       <StyledTitle theme={colorSchema}>Aktif Randevular</StyledTitle>
       {loading ? (
         <ActivityIndicator size={26} color={COLORS.DARK.RED} />
-      ) : (
+      ) : data.length ? (
         <View style={{flex: 1}}>
           <ScrollView
             showsHorizontalScrollIndicator={false}
@@ -54,7 +54,6 @@ const Meets = ({navigation}) => {
                 onPress={() =>
                   navigation.navigate('Hesap', {
                     screen: 'AccountMeets',
-                    initial: false,
                   })
                 }
                 theme={colorSchema}
@@ -77,6 +76,24 @@ const Meets = ({navigation}) => {
             ))}
           </ScrollView>
         </View>
+      ) : (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Oluştur')}
+          style={{width: '80%'}}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontFamily: 'Montserrat-SemiBold',
+              fontSize: 12,
+              opacity: 0.7,
+              color:
+                colorSchema == 'light'
+                  ? COLORS.LIGHT.TEXT_COLOR
+                  : COLORS.DARK.TEXT_COLOR,
+            }}>
+            Aktif Randevunuz Bulunamadı! Oluşturmak İçin Buraya Tıklayın
+          </Text>
+        </TouchableOpacity>
       )}
     </StyledMeetsBox>
   );
