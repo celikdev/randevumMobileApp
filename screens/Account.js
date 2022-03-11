@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux';
 import {COLORS} from '../Colors';
 import {setData} from '../redux/slices/UserSlices';
 
+import {StyledTitle} from '../components/main/StyledComponents';
+
 const Account = ({navigation}) => {
   const colorSchema = useColorScheme();
 
@@ -27,29 +29,15 @@ const Account = ({navigation}) => {
             ? COLORS.LIGHT.BACKGROUND
             : COLORS.DARK.BACKGROUND,
       }}>
-      <Text style={{color: COLORS.DARK.TEXT_COLOR}}>Account</Text>
+      <StyledTitle theme={colorSchema}>Hesap</StyledTitle>
       <TouchableOpacity onPress={() => handleLogOut()} style={{paddingTop: 24}}>
-        <Text
-          style={{
-            color: '#FFFFFF',
-            fontSize: 26,
-            fontFamily: 'Montserrat-SemiBold',
-          }}>
-          Çıkış Yap
-        </Text>
+        <StyledTitle theme={colorSchema}>Çıkış Yap</StyledTitle>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => navigation.navigate('AccountMeets')}
         style={{paddingTop: 24}}>
-        <Text
-          style={{
-            color: '#FFFFFF',
-            fontSize: 26,
-            fontFamily: 'Montserrat-SemiBold',
-          }}>
-          MyMeets
-        </Text>
+        <StyledTitle theme={colorSchema}>My Meets</StyledTitle>
       </TouchableOpacity>
     </View>
   );

@@ -12,6 +12,7 @@ import {useSelector} from 'react-redux';
 
 import City from '../City';
 import {COLORS} from '../Colors';
+import {Modals} from '../components/main';
 
 import {
   StyledBox,
@@ -19,6 +20,7 @@ import {
   StyledBusinessImage,
   StyledContainer,
   StyledTitle,
+  StyledMeetTimeButton,
 } from '../components/main/StyledComponents';
 import {API_URL} from '../config';
 
@@ -64,8 +66,6 @@ const BusinessPage = ({route, navigation}) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
 
-  //TODO:Randevu Oluşturma Eklenecek
-
   const handleCreate = () => {
     setLoading(true);
     axios
@@ -83,14 +83,16 @@ const BusinessPage = ({route, navigation}) => {
           },
         },
       )
-      .then(() => alert('Meet Successfully Created'))
-      .catch(e => alert(e))
-      .finally(() => {
-        setLoading(false);
-        setSelectedDate(''), setSelectedTime('');
-        navigation.navigate('Anasayfa');
-      });
+      .then(() => {
+        setModalVisibility(true);
+      })
+      .catch(e => alert(e));
   };
+
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  //BUG: Dolu Saat Disabled Style Yapılacak
 
   return (
     <StyledContainer theme={colorSchema}>
@@ -165,17 +167,7 @@ const BusinessPage = ({route, navigation}) => {
             flexDirection: 'row',
           }}>
           {meetTime.map((time, index) => (
-            <TouchableOpacity
-              disabled={doluSaat.find(saat =>
-                saat.date == selectedDate
-                  ? saat.clock == meetTime
-                    ? console.log(true)
-                    : console.log(false)
-                  : null,
-              )}
-              key={index}
-              activeOpacity={0.8}
-              onPress={() => setSelectedTime(time === selectedTime ? '' : time)}
+            <StyledMeetTimeButton
               style={{
                 backgroundColor:
                   selectedTime == time
@@ -183,14 +175,15 @@ const BusinessPage = ({route, navigation}) => {
                       ? COLORS.LIGHT.TEXT_COLOR
                       : COLORS.DARK.TEXT_COLOR
                     : null,
-                borderWidth: 2,
-                paddingVertical: 8,
-                paddingHorizontal: 24,
                 borderColor:
                   selectedTime == time ? 'transparent' : COLORS.DARK.RED,
-                marginHorizontal: 8,
-                borderRadius: 6,
-              }}>
+              }}
+              disabled={disabled}
+              key={index}
+              activeOpacity={0.8}
+              onPress={() =>
+                setSelectedTime(time === selectedTime ? '' : time)
+              }>
               <Text
                 style={{
                   fontFamily: 'Montserrat-SemiBold',
@@ -205,7 +198,7 @@ const BusinessPage = ({route, navigation}) => {
                 }}>
                 {time}
               </Text>
-            </TouchableOpacity>
+            </StyledMeetTimeButton>
           ))}
         </ScrollView>
 
@@ -247,6 +240,34 @@ const BusinessPage = ({route, navigation}) => {
           )}
         </TouchableOpacity>
       </StyledBox>
+      {/* TODO:Modal Daha Da Düzenlenecek! */}
+      <Modals
+        navigation={navigation}
+        navigateName="Anasayfa"
+        modalVisibility={modalVisibility}
+        setModalVisibility={setModalVisibility}>
+        <StyledTitle theme={colorSchema}>Randevu Oluşturuldu</StyledTitle>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Anasayfa')}
+          style={{
+            borderWidth: 2,
+            borderColor: COLORS.DARK.RED,
+            paddingVertical: 6,
+            paddingHorizontal: 30,
+            borderRadius: 6,
+          }}>
+          <Text
+            style={{
+              fontFamily: 'Montserrat-SemiBold',
+              color:
+                colorSchema == 'light'
+                  ? COLORS.LIGHT.TEXT_COLOR
+                  : COLORS.DARK.TEXT_COLOR,
+            }}>
+            Tamam
+          </Text>
+        </TouchableOpacity>
+      </Modals>
     </StyledContainer>
   );
 };

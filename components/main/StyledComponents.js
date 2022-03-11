@@ -161,6 +161,28 @@ const StyledMeetsText = styled.Text`
   text-align: center;
 `;
 
+const StyledMeetTimeButton = styled.TouchableOpacity`
+  border-width: 2px;
+  border-radius: 6px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: 8px;
+  margin-right: 8px;
+`;
+
+/*<TouchableOpacity
+  style={{
+    backgroundColor:
+      selectedTime == time
+        ? colorSchema == 'light'
+          ? COLORS.LIGHT.TEXT_COLOR
+          : COLORS.DARK.TEXT_COLOR
+        : null,
+    borderColor: selectedTime == time ? 'transparent' : COLORS.DARK.RED,
+  }}></TouchableOpacity>;*/
+
 export {
   StyledContainer,
   StyledBox,
@@ -179,4 +201,5 @@ export {
   StyledMeetsBox,
   StyledMeetsCard,
   StyledMeetsText,
+  StyledMeetTimeButton,
 };
