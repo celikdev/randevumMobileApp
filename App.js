@@ -24,6 +24,7 @@ const App = () => {
   const colorSchema = useColorScheme();
   const dispatch = useDispatch();
 
+  //Get Notifications
   const getNotifications = async () => {
     const token = await AsyncStorage.getItem('userToken');
 

@@ -54,6 +54,10 @@ const Meets = ({navigation}) => {
                 onPress={() =>
                   navigation.navigate('Hesap', {
                     screen: 'AccountMeets',
+                    params: {
+                      meet,
+                    },
+                    initial: false,
                   })
                 }
                 theme={colorSchema}

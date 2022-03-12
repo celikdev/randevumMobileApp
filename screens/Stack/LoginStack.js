@@ -9,10 +9,19 @@ const Stack = createNativeStackNavigator();
 import {Login, Account} from '../';
 import {useSelector} from 'react-redux';
 
-const LoginStack = () => {
+import AccountMeets from '../AccountMeets';
+
+const LoginStack = ({navigation}) => {
   const token = useSelector(state => state.userData.userData);
+
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+        animation: 'none',
+        unmountOnBlur: true,
+      }}>
       <Stack.Screen name="Login" component={token ? Account : Login} />
       {loginStackRoutes.map((routes, index) => (
         <Stack.Screen
@@ -21,6 +30,7 @@ const LoginStack = () => {
           key={index}
         />
       ))}
+      <Stack.Screen name="AccountMeets" component={AccountMeets} />
     </Stack.Navigator>
   );
 };
