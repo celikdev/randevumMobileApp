@@ -1,6 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect} from 'react';
-import {View, Text, useColorScheme, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  useColorScheme,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {COLORS} from '../Colors';
 import {setData} from '../redux/slices/UserSlices';
@@ -10,7 +16,44 @@ import {StyledTitle} from '../components/main/StyledComponents';
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
 
+import PushNotification from 'react-native-push-notification';
+
 const Account = ({navigation}) => {
+  PushNotification.configure({
+    onRegister: function (token) {
+      console.log('TOKEN:', token);
+    },
+
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+
+      notification.finish(PushNotificationIOS.FetchResult.NoData);
+    },
+
+    onAction: function (notification) {
+      console.log('ACTION:', notification.action);
+    },
+
+    senderID: '443887146586',
+    onRegistrationError: function (err) {
+      console.error(err.message, err);
+    },
+    permissions: {
+      alert: true,
+      badge: true,
+      sound: true,
+    },
+    popInitialNotification: true,
+    requestPermissions: true,
+  });
+
+  const sendNotification = () => {
+    PushNotification.localNotification({
+      channelId: 'deneme-channel',
+      title: 'Deneme',
+      message: 'Deneme Message',
+    });
+  };
   const colorSchema = useColorScheme();
 
   const dispatch = useDispatch();
@@ -43,6 +86,8 @@ const Account = ({navigation}) => {
       <TouchableOpacity onPress={() => handleLogOut()} style={{paddingTop: 24}}>
         <StyledTitle theme={colorSchema}>Çıkış Yap</StyledTitle>
       </TouchableOpacity>
+
+      <Button title="Send" onPress={() => sendNotification()} />
 
       <TouchableOpacity
         onPress={() => navigation.navigate('AccountMeets')}
