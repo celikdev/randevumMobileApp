@@ -170,6 +170,9 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES'
+        }
     }
 
     // applicationVariants are e.g. debug, release
