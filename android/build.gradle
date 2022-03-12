@@ -9,6 +9,7 @@ buildscript {
         ndkVersion = "21.4.7075529"
     }
     repositories {
+        jcenter()
         google()
         mavenCentral()
     }
@@ -37,7 +38,9 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
+        mavenLocal()
         google()
+        jcenter()
         maven { url 'https://www.jitpack.io' }
     }
 }
