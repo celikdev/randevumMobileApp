@@ -15,6 +15,7 @@ import {COLORS} from '../Colors';
 
 import {
   StyledBox,
+  StyledButton,
   StyledContainer,
   StyledLoginInput,
   StyledRegisterButton,
@@ -85,21 +86,11 @@ const Login = ({navigation}) => {
           autoCapitalize="none"
           placeholder="Şifre"
         />
-        <TouchableOpacity
+        <StyledButton
           disabled={loading}
-          onPress={() => handleLogin()}
-          style={{
-            width: '35%',
-            borderWidth: 2,
-            borderColor: loading
-              ? colorSchema == 'light'
-                ? COLORS.LIGHT.DISABLED_COLOR
-                : COLORS.DARK.DISABLED_COLOR
-              : COLORS.DARK.RED,
-            alignItems: 'center',
-            paddingVertical: 8,
-            borderRadius: 6,
-          }}>
+          loading={loading}
+          theme={colorSchema}
+          onPress={() => handleLogin()}>
           <Text
             style={{
               fontFamily: 'Montserrat-SemiBold',
@@ -114,7 +105,7 @@ const Login = ({navigation}) => {
               'Giriş Yap'
             )}
           </Text>
-        </TouchableOpacity>
+        </StyledButton>
         <TouchableOpacity
           onPress={() => navigation.navigate('ForgotPassword')}
           style={{

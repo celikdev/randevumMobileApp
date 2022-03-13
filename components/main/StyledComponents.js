@@ -172,16 +172,20 @@ const StyledMeetTimeButton = styled.TouchableOpacity`
   margin-right: 8px;
 `;
 
-/*<TouchableOpacity
-  style={{
-    backgroundColor:
-      selectedTime == time
-        ? colorSchema == 'light'
-          ? COLORS.LIGHT.TEXT_COLOR
-          : COLORS.DARK.TEXT_COLOR
-        : null,
-    borderColor: selectedTime == time ? 'transparent' : COLORS.DARK.RED,
-  }}></TouchableOpacity>;*/
+const StyledButton = styled.TouchableOpacity`
+  width: 35%;
+  border-width: 2px;
+  border-color: ${props =>
+    props.loading
+      ? props.theme == 'light'
+        ? COLORS.LIGHT.DISABLED_COLOR
+        : COLORS.DARK.DISABLED_COLOR
+      : COLORS.DARK.RED};
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+`;
 
 export {
   StyledContainer,
@@ -202,4 +206,5 @@ export {
   StyledMeetsCard,
   StyledMeetsText,
   StyledMeetTimeButton,
+  StyledButton,
 };

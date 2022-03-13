@@ -55,16 +55,34 @@ const Account = ({navigation}) => {
             : COLORS.DARK.BACKGROUND,
       }}>
       <StyledTitle theme={colorSchema}>Hesap</StyledTitle>
-      <TouchableOpacity onPress={() => handleLogOut()} style={{paddingTop: 24}}>
-        <StyledTitle theme={colorSchema}>Çıkış Yap</StyledTitle>
-      </TouchableOpacity>
-
-      <Button title="Send" onPress={() => sendNotification()} />
 
       <TouchableOpacity
         onPress={() => navigation.navigate('AccountMeets')}
         style={{paddingTop: 24}}>
         <StyledTitle theme={colorSchema}>My Meets</StyledTitle>
+      </TouchableOpacity>
+
+      <Button title="Send" onPress={() => sendNotification()} />
+
+      <TouchableOpacity
+        onPress={() => handleLogOut()}
+        style={{
+          marginTop: 24,
+          backgroundColor:
+            colorSchema == 'light'
+              ? COLORS.LIGHT.TEXT_COLOR
+              : COLORS.DARK.TEXT_COLOR,
+          paddingVertical: 8,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+        }}>
+        <Text
+          style={{
+            fontFamily: 'Montserrat-SemiBold',
+            color: COLORS.DARK.RED,
+          }}>
+          Çıkış Yap
+        </Text>
       </TouchableOpacity>
     </View>
   );
