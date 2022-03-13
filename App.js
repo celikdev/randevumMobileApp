@@ -1,6 +1,12 @@
 import React, {useEffect} from 'react';
 
-import {useColorScheme, StatusBar, Image} from 'react-native';
+import {
+  useColorScheme,
+  StatusBar,
+  Image,
+  PushNotificationIOS,
+  Alert,
+} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -18,11 +24,43 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {setNotification} from './redux/slices/UserSlices';
 
+import PushNotification from 'react-native-push-notification';
+
+import messaging from '@react-native-firebase/messaging';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const colorSchema = useColorScheme();
   const dispatch = useDispatch();
+
+  PushNotification.configure({
+    onRegister: function (token) {
+      //console.log('TOKEN:', token);
+    },
+
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+
+      notification.finish(PushNotificationIOS.FetchResult.NoData);
+    },
+
+    onAction: function (notification) {
+      console.log('ACTION:', notification.action);
+    },
+
+    senderID: '443887146586',
+    onRegistrationError: function (err) {
+      console.error(err.message, err);
+    },
+    permissions: {
+      alert: true,
+      badge: true,
+      sound: true,
+    },
+    popInitialNotification: true,
+    requestPermissions: true,
+  });
 
   //Get Notifications
   const getNotifications = async () => {
@@ -39,6 +77,16 @@ const App = () => {
 
   useEffect(() => {
     getNotifications();
+
+    const unsubscribe = messaging().onMessage(payload => {
+      console.log('A new FCM message arrived!', payload.notification.body);
+      PushNotification.localNotification({
+        channelId: 'deneme-channel',
+        title: payload.notification.title,
+        message: payload.notification.body,
+      });
+    });
+    return unsubscribe;
   }, []);
 
   return (

@@ -24,6 +24,8 @@ import {
 } from '../components/main/StyledComponents';
 import {API_URL} from '../config';
 
+import PushNotification from 'react-native-push-notification';
+
 const BusinessPage = ({route, navigation}) => {
   const {businessID} = route.params;
 
@@ -84,6 +86,11 @@ const BusinessPage = ({route, navigation}) => {
         },
       )
       .then(() => {
+        PushNotification.localNotification({
+          channelId: 'deneme-channel',
+          title: 'Randevu Oluşturuldu',
+          message: `${selectedDate} Tarihli, ${selectedTime} Saatli ${data.businessName} Randevunuz Oluşturulmuştur!`,
+        });
         setModalVisibility(true);
       })
       .catch(e => alert(e));

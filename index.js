@@ -10,6 +10,8 @@ import SplashScreen from 'react-native-splash-screen';
 import {name as appName} from './app.json';
 import {store} from './redux/store';
 
+import messaging from '@react-native-firebase/messaging';
+
 const RNRedux = () => {
   useEffect(() => {
     setTimeout(() => {
@@ -22,5 +24,9 @@ const RNRedux = () => {
     </Provider>
   );
 };
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
 AppRegistry.registerComponent(appName, () => RNRedux);

@@ -19,34 +19,6 @@ import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 
 const Account = ({navigation}) => {
-  PushNotification.configure({
-    onRegister: function (token) {
-      console.log('TOKEN:', token);
-    },
-
-    onNotification: function (notification) {
-      console.log('NOTIFICATION:', notification);
-
-      notification.finish(PushNotificationIOS.FetchResult.NoData);
-    },
-
-    onAction: function (notification) {
-      console.log('ACTION:', notification.action);
-    },
-
-    senderID: '443887146586',
-    onRegistrationError: function (err) {
-      console.error(err.message, err);
-    },
-    permissions: {
-      alert: true,
-      badge: true,
-      sound: true,
-    },
-    popInitialNotification: true,
-    requestPermissions: true,
-  });
-
   const sendNotification = () => {
     PushNotification.localNotification({
       channelId: 'deneme-channel',

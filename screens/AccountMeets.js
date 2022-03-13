@@ -14,7 +14,8 @@ import axios from 'axios';
 
 import {API_URL} from '../config';
 import {useSelector} from 'react-redux';
-import {CommonActions} from '@react-navigation/native';
+
+import PushNotification from 'react-native-push-notification';
 
 const AccountMeets = ({route, navigation}) => {
   const colorSchema = useColorScheme();
@@ -32,6 +33,11 @@ const AccountMeets = ({route, navigation}) => {
       })
       .then(res => {
         setModalVisibility(false);
+        PushNotification.localNotification({
+          channelId: 'deneme-channel',
+          title: 'Randevu İptal Edildi',
+          message: `${meet.date} Tarihli, ${meet.clock} Saatli ${meet.businessName} Randevunuz İptal Edilmiştir!`,
+        });
         navigation.navigate('Anasayfa');
       });
   };
