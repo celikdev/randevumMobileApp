@@ -66,13 +66,20 @@ const App = () => {
   const getNotifications = async () => {
     const token = await AsyncStorage.getItem('userToken');
 
-    axios
-      .get(`${API_URL}/notifications`, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-      .then(res => dispatch(setNotification(res.data)));
+    if (token) {
+      console.log('fetch start');
+      axios
+        .get(`${API_URL}/notifications`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        })
+        .then(res => dispatch(setNotification(res.data)))
+        .catch(err => console.error(err.response));
+    } else {
+      console.log('no token');
+      return;
+    }
   };
 
   useEffect(() => {

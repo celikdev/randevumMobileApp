@@ -176,7 +176,7 @@ const StyledButton = styled.TouchableOpacity`
   width: 35%;
   border-width: 2px;
   border-color: ${props =>
-    props.loading
+    props.disabled
       ? props.theme == 'light'
         ? COLORS.LIGHT.DISABLED_COLOR
         : COLORS.DARK.DISABLED_COLOR
