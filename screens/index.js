@@ -7,6 +7,7 @@ import BusinessFilterByCategory from './BusinessFİlterByCategory';
 import BusinessPage from './BusinessPage';
 
 import ForgotPassword from './ForgotPassword';
+import MailVerification from './MailVerification';
 
 import Notifications from './Notifications';
 
@@ -23,4 +24,5 @@ export {
   ForgotPassword,
   Notifications,
   AccountMeets,
+  MailVerification,
 };

@@ -52,7 +52,7 @@ const Register = ({navigation}) => {
 
   //TODO:Register Sonrası E-Mail Doğrulama Yapılacak!
   const handleRegister = () => {
-    axios
+    /*axios
       .post(`${API_URL}/auth/register`, {
         userName: name,
         userSurname: surname,
@@ -62,7 +62,8 @@ const Register = ({navigation}) => {
         KVKK: toggleCheckbox,
       })
       .then(res => setSuccessModal(true))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));*/
+    navigation.navigate('MailVerification', {email: email});
   };
 
   return (

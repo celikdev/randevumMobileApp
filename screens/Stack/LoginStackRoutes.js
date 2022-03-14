@@ -1,5 +1,6 @@
 import {Register} from '..';
 import ForgotPassword from '../ForgotPassword';
+import MailVerification from '../MailVerification';
 
 export const loginStackRoutes = [
   {
@@ -9,5 +10,9 @@ export const loginStackRoutes = [
   {
     name: 'ForgotPassword',
     component: ForgotPassword,
+  },
+  {
+    name: 'MailVerification',
+    component: MailVerification,
   },
 ];
