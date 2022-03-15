@@ -18,6 +18,7 @@ import messaging from '@react-native-firebase/messaging';
 
 import PushNotification from 'react-native-push-notification';
 
+//TODO:Account Page Yapılacak
 const Account = ({navigation}) => {
   const sendNotification = () => {
     PushNotification.localNotification({
@@ -36,12 +37,12 @@ const Account = ({navigation}) => {
     navigation.navigate('Anasayfa');
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     messaging()
       .getToken(firebase.app().options.messagingSenderId)
       .then(x => console.log(x))
       .catch(e => console.log(e));
-  }, []);
+  }, []);*/
 
   return (
     <View

@@ -19,6 +19,8 @@ const Home = ({navigation}) => {
     readUserToken(dispatch);
   }, []);
 
+  //TODO:UserEmailVerification Kontrol Edilecek!
+
   return (
     <StyledContainer theme={colorSchema}>
       <ScrollView

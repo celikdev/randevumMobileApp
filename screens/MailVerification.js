@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, useColorScheme} from 'react-native';
+import {View, Text, useColorScheme} from 'react-native';
 import {
   StyledBox,
   StyledButton,
@@ -14,6 +14,9 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import {COLORS} from '../Colors';
+import axios from 'axios';
+import {API_URL} from '../config';
+import {Modals} from '../components/main';
 
 const CELL_COUNT = 4;
 
@@ -29,14 +32,53 @@ const MailVerification = ({route, navigation}) => {
     setValue,
   });
 
+  const [successAlert, setSuccessAlert] = useState(false);
+
+  const [successVerifyModal, setSuccessVerifyModal] = useState(false);
+
   useEffect(() => {
-    alert(email);
+    axios
+      .post(`${API_URL}/auth/verification-email`, {
+        userEmail: email,
+      })
+      .then(() => setSuccessAlert(true))
+      .catch(err => console.log(err.response));
   }, []);
 
-  //TODO:useEffect verification mail gönderilecek!
-  //TODO:handleSubmit yapılacak!
+  //TODO:Error Alert Yapılacak!
+  const handleSubmit = () => {
+    axios
+      .post(`${API_URL}/auth/verify-email-code`, {
+        verificationCode: value,
+        userEmail: email,
+      })
+      .then(res => setSuccessVerifyModal(true))
+      .catch(err => console.log(err.response));
+  };
+
   return (
     <StyledContainer theme={colorSchema}>
+      <View
+        style={{
+          display: successAlert ? 'flex' : 'none',
+          backgroundColor: 'lightgreen',
+          width: '90%',
+          marginTop: 30,
+          paddingVertical: 20,
+          borderRadius: 6,
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            color:
+              colorSchema == 'light'
+                ? COLORS.DARK.TEXT_COLOR
+                : COLORS.LIGHT.TEXT_COLOR,
+            fontFamily: 'Montserrat-SemiBold',
+          }}>
+          E-Posta Gönderildi
+        </Text>
+      </View>
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>E-Posta Doğrulama</StyledTitle>
         <Text
@@ -50,6 +92,7 @@ const MailVerification = ({route, navigation}) => {
           Lütfen E-Posta Adresinize Gelen Doğrulama Kodunuzu Girin
         </Text>
         <CodeField
+          onFocus={() => setSuccessAlert(false)}
           ref={ref}
           {...props}
           value={value}
@@ -69,7 +112,10 @@ const MailVerification = ({route, navigation}) => {
             </Text>
           )}
         />
-        <StyledButton disabled={value.length < 4} style={{marginTop: 20}}>
+        <StyledButton
+          onPress={() => handleSubmit()}
+          disabled={value.length < 4}
+          style={{marginTop: 20}}>
           <Text
             style={{
               fontFamily: 'Montserrat-SemiBold',
@@ -82,6 +128,39 @@ const MailVerification = ({route, navigation}) => {
           </Text>
         </StyledButton>
       </StyledBox>
+      <Modals
+        theme={colorSchema}
+        setModalVisibility={setSuccessVerifyModal}
+        modalVisibility={successVerifyModal}>
+        <StyledTitle theme={colorSchema}>Doğrulama Başarılı</StyledTitle>
+        <Text
+          style={{
+            marginBottom: 20,
+            fontSize: 12,
+            opacity: 0.6,
+            fontFamily: 'Montserrat-SemiBold',
+            color:
+              colorSchema == 'light'
+                ? COLORS.LIGHT.TEXT_COLOR
+                : COLORS.DARK.TEXT_COLOR,
+          }}>
+          E-Posta Adresin Başarıyla Doğrulandı!
+        </Text>
+        <StyledButton
+          onPress={() => navigation.navigate('Login')}
+          theme={colorSchema}>
+          <Text
+            style={{
+              fontFamily: 'Montserrat-SemiBold',
+              color:
+                colorSchema == 'light'
+                  ? COLORS.LIGHT.TEXT_COLOR
+                  : COLORS.DARK.TEXT_COLOR,
+            }}>
+            Giriş Yap
+          </Text>
+        </StyledButton>
+      </Modals>
     </StyledContainer>
   );
 };

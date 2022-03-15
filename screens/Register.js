@@ -13,7 +13,8 @@ import CheckBox from '@react-native-community/checkbox';
 import {COLORS} from '../Colors';
 import axios from 'axios';
 import {API_URL} from '../config';
-import {Modals} from '../components/main';
+
+import PushNotification from 'react-native-push-notification';
 
 const Register = ({navigation}) => {
   const token = false;
@@ -22,17 +23,15 @@ const Register = ({navigation}) => {
 
   const [loading, setLoading] = useState(false);
 
-  const [name, setName] = useState('1');
-  const [surname, setSurname] = useState('2');
-  const [email, setEmail] = useState('3');
-  const [password, setPassword] = useState('4');
-  const [phone, setPhone] = useState('5');
+  const [name, setName] = useState('deneme');
+  const [surname, setSurname] = useState('hesap');
+  const [email, setEmail] = useState('hakanbaba5255@gmail.com');
+  const [password, setPassword] = useState('123');
+  const [phone, setPhone] = useState('5555555555');
 
   const [toggleCheckbox, setToggleCheckbox] = useState(false);
 
   const [buttonDisable, setButtonDisable] = useState(false);
-
-  const [successModal, setSuccessModal] = useState(false);
 
   useEffect(() => {
     if (
@@ -50,9 +49,8 @@ const Register = ({navigation}) => {
     }
   });
 
-  //TODO:Register Sonrası E-Mail Doğrulama Yapılacak!
   const handleRegister = () => {
-    /*axios
+    axios
       .post(`${API_URL}/auth/register`, {
         userName: name,
         userSurname: surname,
@@ -61,9 +59,16 @@ const Register = ({navigation}) => {
         userPhone: phone,
         KVKK: toggleCheckbox,
       })
-      .then(res => setSuccessModal(true))
-      .catch(err => console.log(err));*/
-    navigation.navigate('MailVerification', {email: email});
+      .then(res => {
+        PushNotification.localNotification({
+          channelId: 'deneme-channel',
+          title: "Randevum'a Hoşgeldin!",
+          message: `Aramıza Hoşgeldin ${name}`,
+        });
+        navigation.navigate('MailVerification', {email: email});
+      })
+      //TODO:ERROR ALERT YAPILACAK
+      .catch(err => console.log(err.response));
   };
 
   return (
@@ -161,34 +166,6 @@ const Register = ({navigation}) => {
           </Text>
         </StyledButton>
       </StyledBox>
-      <Modals
-        modalVisibility={successModal}
-        setModalVisibility={setSuccessModal}
-        navigation={navigation}
-        navigateName="Login">
-        <StyledTitle theme={colorSchema}>Kayıt Başarılı</StyledTitle>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
-          style={{
-            borderWidth: 2,
-            borderColor: COLORS.DARK.RED,
-            paddingVertical: 8,
-            paddingHorizontal: 20,
-            borderRadius: 6,
-          }}>
-          <Text
-            style={{
-              fontFamily: 'Montserrat-SemiBold',
-              fontSize: 14,
-              color:
-                colorSchema == 'light'
-                  ? COLORS.LIGHT.TEXT_COLOR
-                  : COLORS.DARK.TEXT_COLOR,
-            }}>
-            Giriş Yap
-          </Text>
-        </TouchableOpacity>
-      </Modals>
     </StyledContainer>
   );
 };
