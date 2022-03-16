@@ -25,7 +25,7 @@ const Register = ({navigation}) => {
 
   const [name, setName] = useState('deneme');
   const [surname, setSurname] = useState('hesap');
-  const [email, setEmail] = useState('hakanbaba5255@gmail.com');
+  const [email, setEmail] = useState('x');
   const [password, setPassword] = useState('123');
   const [phone, setPhone] = useState('5555555555');
 
@@ -50,7 +50,7 @@ const Register = ({navigation}) => {
   });
 
   const handleRegister = () => {
-    axios
+    /*axios
       .post(`${API_URL}/auth/register`, {
         userName: name,
         userSurname: surname,
@@ -66,9 +66,10 @@ const Register = ({navigation}) => {
           message: `Aramıza Hoşgeldin ${name}`,
         });
         navigation.navigate('MailVerification', {email: email});
-      })
-      //TODO:ERROR ALERT YAPILACAK
-      .catch(err => console.log(err.response));
+      })*/
+    navigation.navigate('MailVerification', {email: email});
+    //TODO:ERROR ALERT YAPILACAK
+    //.catch(err => console.log(err.response));
   };
 
   return (

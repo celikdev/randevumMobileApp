@@ -187,6 +187,32 @@ const StyledButton = styled.TouchableOpacity`
   border-radius: 6px;
 `;
 
+const StyledSuccessAlert = styled.Text`
+  display: ${props => (props.successAlert ? 'flex' : 'none')};
+  background-color: lightgreen;
+  width: 90%;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 6px;
+  text-align: center;
+  font-family: 'Montserrat-SemiBold';
+  color: ${COLORS.LIGHT.TEXT_COLOR};
+`;
+
+const StyledErrorAlert = styled.Text`
+  display: ${props => (props.errorAlert ? 'flex' : 'none')};
+  background-color: ${COLORS.DARK.RED};
+  width: 90%;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 6px;
+  text-align: center;
+  font-family: 'Montserrat-SemiBold';
+  color: ${COLORS.DARK.TEXT_COLOR};
+`;
+
 export {
   StyledContainer,
   StyledBox,
@@ -207,4 +233,6 @@ export {
   StyledMeetsText,
   StyledMeetTimeButton,
   StyledButton,
+  StyledSuccessAlert,
+  StyledErrorAlert,
 };

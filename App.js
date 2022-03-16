@@ -62,24 +62,24 @@ const App = () => {
     requestPermissions: true,
   });
 
+  //TODO:Giriş Yapıldıktan Sonra Notifications Fetch Yapılacak!
   //Get Notifications
   const getNotifications = async () => {
     const token = await AsyncStorage.getItem('userToken');
 
-    if (token) {
-      console.log('fetch start');
-      axios
-        .get(`${API_URL}/notifications`, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-        .then(res => dispatch(setNotification(res.data)))
-        .catch(err => console.error(err.response));
-    } else {
+    if (!token) {
       console.log('no token');
       return;
     }
+    console.log('notification fetch start');
+    axios
+      .get(`${API_URL}/notifications`, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(res => dispatch(setNotification(res.data)))
+      .catch(err => console.error(err.response));
   };
 
   useEffect(() => {

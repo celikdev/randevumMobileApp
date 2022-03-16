@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, useColorScheme} from 'react-native';
+import {Text, useColorScheme} from 'react-native';
+
 import {
   StyledBox,
   StyledButton,
   StyledContainer,
+  StyledErrorAlert,
+  StyledSuccessAlert,
   StyledTitle,
 } from '../components/main/StyledComponents';
 
@@ -32,7 +35,8 @@ const MailVerification = ({route, navigation}) => {
     setValue,
   });
 
-  const [successAlert, setSuccessAlert] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(true);
+  const [errorAlert, setErrorAlert] = useState(false);
 
   const [successVerifyModal, setSuccessVerifyModal] = useState(false);
 
@@ -42,10 +46,9 @@ const MailVerification = ({route, navigation}) => {
         userEmail: email,
       })
       .then(() => setSuccessAlert(true))
-      .catch(err => console.log(err.response));
+      .catch(err => console.error(err));
   }, []);
 
-  //TODO:Error Alert Yapılacak!
   const handleSubmit = () => {
     axios
       .post(`${API_URL}/auth/verify-email-code`, {
@@ -53,32 +56,62 @@ const MailVerification = ({route, navigation}) => {
         userEmail: email,
       })
       .then(res => setSuccessVerifyModal(true))
-      .catch(err => console.log(err.response));
+      .catch(err => setErrorAlert(true));
   };
+
+  const fadeIn = {
+    from: {
+      translateX: -360,
+    },
+    to: {
+      translateX: 0,
+    },
+  };
+
+  //TODO:Animasyona Bakılacak!
+  /*const animated = new Animated.Value(-1000);
+
+  const handleStart = () => {
+    Animated.sequence([
+      Animated.timing(animated, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }),
+    ]),
+      Animated.timing(animated, {
+        toValue: 255,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+
+      
+            <Animated.Text
+        style={[
+          {
+            width: '90%',
+            backgroundColor: 'lightgreen',
+            paddingVertical: 20,
+            marginTop: 30,
+            textAlign: 'center',
+            fontFamily: 'Montserrat-SemiBold',
+            color: COLORS.LIGHT.TEXT_COLOR,
+            borderRadius: 6,
+            transform: [],
+          },
+          {transform: [{translateX: animated}]},
+        ]}>
+        E-Posta Gönderildi
+      </Animated.Text>
+      <Button title="asd" onPress={() => handleStart()} />
+  };*/
 
   return (
     <StyledContainer theme={colorSchema}>
-      <View
-        style={{
-          display: successAlert ? 'flex' : 'none',
-          backgroundColor: 'lightgreen',
-          width: '90%',
-          marginTop: 30,
-          paddingVertical: 20,
-          borderRadius: 6,
-          alignItems: 'center',
-        }}>
-        <Text
-          style={{
-            color:
-              colorSchema == 'light'
-                ? COLORS.DARK.TEXT_COLOR
-                : COLORS.LIGHT.TEXT_COLOR,
-            fontFamily: 'Montserrat-SemiBold',
-          }}>
-          E-Posta Gönderildi
-        </Text>
-      </View>
+      <StyledSuccessAlert successAlert={successAlert}>
+        E-Posta Gönderildi
+      </StyledSuccessAlert>
+      <StyledErrorAlert errorAlert={errorAlert}>asdads</StyledErrorAlert>
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>E-Posta Doğrulama</StyledTitle>
         <Text
@@ -88,6 +121,10 @@ const MailVerification = ({route, navigation}) => {
             textAlign: 'center',
             paddingHorizontal: 20,
             marginBottom: 10,
+            color:
+              colorSchema == 'light'
+                ? COLORS.LIGHT.TEXT_COLOR
+                : COLORS.DARK.TEXT_COLOR,
           }}>
           Lütfen E-Posta Adresinize Gelen Doğrulama Kodunuzu Girin
         </Text>
@@ -167,7 +204,7 @@ const MailVerification = ({route, navigation}) => {
 
 export default MailVerification;
 
-getStyle = function ({colorSchema}) {
+getStyle = function (colorSchema) {
   return {
     root: {flex: 1, padding: 20},
     title: {textAlign: 'center', fontSize: 30},
