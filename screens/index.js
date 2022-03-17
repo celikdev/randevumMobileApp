@@ -13,6 +13,8 @@ import Notifications from './Notifications';
 
 import AccountMeets from './AccountMeets';
 
+import UserInfo from './UserInfo';
+
 export {
   Home,
   Create,
@@ -25,4 +27,5 @@ export {
   Notifications,
   AccountMeets,
   MailVerification,
+  UserInfo,
 };

@@ -35,7 +35,7 @@ const MailVerification = ({route, navigation}) => {
     setValue,
   });
 
-  const [successAlert, setSuccessAlert] = useState(true);
+  const [successAlert, setSuccessAlert] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
 
   const [successVerifyModal, setSuccessVerifyModal] = useState(false);
@@ -45,8 +45,7 @@ const MailVerification = ({route, navigation}) => {
       .post(`${API_URL}/auth/verification-email`, {
         userEmail: email,
       })
-      .then(() => setSuccessAlert(true))
-      .catch(err => console.error(err));
+      .then(() => setSuccessAlert(true));
   }, []);
 
   const handleSubmit = () => {
@@ -111,7 +110,9 @@ const MailVerification = ({route, navigation}) => {
       <StyledSuccessAlert successAlert={successAlert}>
         E-Posta Gönderildi
       </StyledSuccessAlert>
-      <StyledErrorAlert errorAlert={errorAlert}>asdads</StyledErrorAlert>
+      <StyledErrorAlert errorAlert={errorAlert}>
+        Doğrulama Kodu Geçersiz
+      </StyledErrorAlert>
       <StyledBox theme={colorSchema}>
         <StyledTitle theme={colorSchema}>E-Posta Doğrulama</StyledTitle>
         <Text
@@ -129,7 +130,10 @@ const MailVerification = ({route, navigation}) => {
           Lütfen E-Posta Adresinize Gelen Doğrulama Kodunuzu Girin
         </Text>
         <CodeField
-          onFocus={() => setSuccessAlert(false)}
+          onFocus={() => {
+            setSuccessAlert(false);
+            setErrorAlert(false);
+          }}
           ref={ref}
           {...props}
           value={value}

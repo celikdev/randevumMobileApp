@@ -187,6 +187,18 @@ const StyledButton = styled.TouchableOpacity`
   border-radius: 6px;
 `;
 
+const StyledAccountButton = styled.TouchableOpacity`
+  width: 80%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: ${props =>
+    props.theme == 'light' ? COLORS.LIGHT.BACKGROUND : COLORS.DARK.BACKGROUND};
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-radius: 6px;
+`;
+
 const StyledSuccessAlert = styled.Text`
   display: ${props => (props.successAlert ? 'flex' : 'none')};
   background-color: lightgreen;
@@ -233,6 +245,7 @@ export {
   StyledMeetsText,
   StyledMeetTimeButton,
   StyledButton,
+  StyledAccountButton,
   StyledSuccessAlert,
   StyledErrorAlert,
 };
