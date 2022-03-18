@@ -11,7 +11,7 @@ import MailVerification from './MailVerification';
 
 import Notifications from './Notifications';
 
-import AccountMeets from './AccountMeets';
+import UserMeets from './UserMeets';
 
 import UserInfo from './UserInfo';
 
@@ -25,7 +25,7 @@ export {
   BusinessPage,
   ForgotPassword,
   Notifications,
-  AccountMeets,
+  UserMeets,
   MailVerification,
   UserInfo,
 };

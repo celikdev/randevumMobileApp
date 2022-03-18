@@ -4,6 +4,10 @@ export const buttonData = [
     navigateName: 'UserInfo',
   },
   {
+    name: 'Randevularım',
+    navigateName: 'UserMeets',
+  },
+  {
     name: 'Destek',
     navigateName: 'SupportPage',
   },

@@ -2,6 +2,7 @@ import {Register} from '..';
 import ForgotPassword from '../ForgotPassword';
 import MailVerification from '../MailVerification';
 import UserInfo from '../UserInfo';
+import UserMeets from '../UserMeets';
 
 export const loginStackRoutes = [
   {
@@ -11,6 +12,10 @@ export const loginStackRoutes = [
   {
     name: 'UserInfo',
     component: UserInfo,
+  },
+  {
+    name: 'UserMeets',
+    component: UserMeets,
   },
   {
     name: 'ForgotPassword',
