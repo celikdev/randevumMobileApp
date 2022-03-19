@@ -1,11 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   useColorScheme,
   StatusBar,
   Image,
+  Text,
   PushNotificationIOS,
-  Alert,
+  Button,
+  BackHandler,
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -28,11 +30,18 @@ import PushNotification from 'react-native-push-notification';
 
 import messaging from '@react-native-firebase/messaging';
 
+import NetInfo from '@react-native-community/netinfo';
+
+import {Modals} from './components/main/';
+import {StyledButton, StyledTitle} from './components/main/StyledComponents';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const colorSchema = useColorScheme();
   const dispatch = useDispatch();
+
+  const [internetModal, setInternetModal] = useState(false);
 
   PushNotification.configure({
     onRegister: function (token) {
@@ -85,6 +94,14 @@ const App = () => {
   useEffect(() => {
     getNotifications();
 
+    const internetInfo = NetInfo.addEventListener(state => {
+      if (!state.isConnected) {
+        setInternetModal(true);
+      } else {
+        return;
+      }
+    });
+
     const unsubscribe = messaging().onMessage(payload => {
       console.log('A new FCM message arrived!', payload.notification.body);
       PushNotification.localNotification({
@@ -107,6 +124,29 @@ const App = () => {
         }
       />
       <NavigationContainer>
+        <Modals
+          modalVisibility={internetModal}
+          setModalVisibility={setInternetModal}>
+          <StyledTitle
+            style={{textAlign: 'center', fontSize: 14}}
+            theme={colorSchema}>
+            Lütfen İnternet Bağlantınızı Kontrol Edin
+          </StyledTitle>
+          <StyledButton
+            theme={colorSchema}
+            onPress={() => BackHandler.exitApp()}>
+            <Text
+              style={{
+                fontFamily: 'Montserrat-SemiBold',
+                color:
+                  colorSchema == 'light'
+                    ? COLORS.LIGHT.TEXT_COLOR
+                    : COLORS.DARK.TEXT_COLOR,
+              }}>
+              Tamam
+            </Text>
+          </StyledButton>
+        </Modals>
         <Stack.Navigator
           screenOptions={({navigation}) => ({
             headerTitleAlign: 'center',

@@ -31,7 +31,7 @@ const Modals = ({
         setModalVisibility(false);
         navigation.navigate(navigateName);
       }}
-      useNativeDriver={false}
+      useNativeDriver={true}
       style={{
         alignItems: 'center',
         justifyContent: 'center',
