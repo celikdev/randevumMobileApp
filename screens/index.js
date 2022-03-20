@@ -12,8 +12,8 @@ import MailVerification from './MailVerification';
 import Notifications from './Notifications';
 
 import UserMeets from './UserMeets';
-
 import UserInfo from './UserInfo';
+import UserFavoriteBusiness from './UserFavoriteBusiness';
 
 export {
   Home,
@@ -28,4 +28,5 @@ export {
   UserMeets,
   MailVerification,
   UserInfo,
+  UserFavoriteBusiness,
 };

@@ -16,7 +16,6 @@ import PushNotification from 'react-native-push-notification';
 
 import {buttonData} from '../components/Data';
 
-//TODO:Account Page Yapılacak
 //TODO:Stack Yapısı Düzenlenecek
 const Account = ({navigation}) => {
   const sendNotification = () => {

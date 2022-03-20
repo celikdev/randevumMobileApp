@@ -8,6 +8,10 @@ export const buttonData = [
     navigateName: 'UserMeets',
   },
   {
+    name: 'Favori İşletmelerim',
+    navigateName: 'UserFavoriteBusiness',
+  },
+  {
     name: 'Destek',
     navigateName: 'SupportPage',
   },
