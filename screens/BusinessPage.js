@@ -100,6 +100,7 @@ const BusinessPage = ({route, navigation}) => {
   const [disabled, setDisabled] = useState(false);
 
   //BUG: Dolu Saat Disabled Style Yapılacak
+  //TODO:Business Meet Time Ve Date API'dan Alınacak!
 
   return (
     <StyledContainer theme={colorSchema}>

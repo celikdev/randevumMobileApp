@@ -73,7 +73,17 @@ const AccountMeets = ({route, navigation}) => {
         modalVisibility={modalVisibility}
         setModalVisibility={setModalVisibility}>
         <StyledTitle theme={colorSchema}>İptal Et</StyledTitle>
-        <Text>Randevunuzu İptal Etmek İstiyor Musunuz?</Text>
+        <Text
+          style={{
+            color:
+              colorSchema == 'light'
+                ? COLORS.LIGHT.TEXT_COLOR
+                : COLORS.DARK.TEXT_COLOR,
+            fontFamily: 'Montserrat-SemiBold',
+            fontSize: 12,
+          }}>
+          Randevunuzu İptal Etmek İstiyor Musunuz?
+        </Text>
         <View
           style={{
             flexDirection: 'row',
