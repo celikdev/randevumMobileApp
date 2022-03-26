@@ -149,6 +149,7 @@ const App = () => {
         </Modals>
         <Stack.Navigator
           screenOptions={({navigation}) => ({
+            animation: 'slide_from_right',
             headerTitleAlign: 'center',
             headerRight: () => <NotificationBell navigation={navigation} />,
             headerTitle: () => (
@@ -167,6 +168,7 @@ const App = () => {
                   ? COLORS.LIGHT.BOX_COLOR
                   : COLORS.DARK.BOX_COLOR,
             },
+            headerTintColor: 'white',
           })}>
           {routes.map((route, index) => (
             <Stack.Screen
