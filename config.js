@@ -1,1 +1,1 @@
-export const API_URL = 'https://randevum-backend-j7fg5.ondigitalocean.app';
+export const API_URL = 'http://192.168.1.33:8001';

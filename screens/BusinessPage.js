@@ -93,7 +93,7 @@ const BusinessPage = ({route, navigation}) => {
         });
         setModalVisibility(true);
       })
-      .catch(e => alert(e));
+      .catch(e => console.log(e.response));
   };
 
   const [modalVisibility, setModalVisibility] = useState(false);
@@ -128,42 +128,48 @@ const BusinessPage = ({route, navigation}) => {
             width: '100%',
             flexDirection: 'row',
           }}>
-          {meetDate.map((date, index) => (
-            <TouchableOpacity
-              key={index}
-              activeOpacity={0.8}
-              onPress={() => setSelectedDate(date === selectedDate ? '' : date)}
-              style={{
-                backgroundColor:
-                  selectedDate == date
-                    ? colorSchema == 'light'
-                      ? COLORS.LIGHT.TEXT_COLOR
-                      : COLORS.DARK.TEXT_COLOR
-                    : null,
-                borderWidth: 2,
-                paddingVertical: 8,
-                paddingHorizontal: 24,
-                borderColor:
-                  selectedDate == date ? 'transparent' : COLORS.DARK.RED,
-                marginHorizontal: 8,
-                borderRadius: 6,
-              }}>
-              <Text
+          {data.businessMeetDates && data.businessMeetDates.length > 0 ? (
+            data.businessMeetDates.map((date, index) => (
+              <TouchableOpacity
+                key={index}
+                activeOpacity={0.8}
+                onPress={() =>
+                  setSelectedDate(date === selectedDate ? '' : date)
+                }
                 style={{
-                  fontFamily: 'Montserrat-SemiBold',
-                  color:
+                  backgroundColor:
                     selectedDate == date
                       ? colorSchema == 'light'
-                        ? COLORS.LIGHT.BACKGROUND
-                        : COLORS.DARK.BACKGROUND
-                      : colorSchema == 'light'
-                      ? COLORS.LIGHT.TEXT_COLOR
-                      : COLORS.DARK.TEXT_COLOR,
+                        ? COLORS.LIGHT.TEXT_COLOR
+                        : COLORS.DARK.TEXT_COLOR
+                      : null,
+                  borderWidth: 2,
+                  paddingVertical: 8,
+                  paddingHorizontal: 24,
+                  borderColor:
+                    selectedDate == date ? 'transparent' : COLORS.DARK.RED,
+                  marginHorizontal: 8,
+                  borderRadius: 6,
                 }}>
-                {date}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={{
+                    fontFamily: 'Montserrat-SemiBold',
+                    color:
+                      selectedDate == date
+                        ? colorSchema == 'light'
+                          ? COLORS.LIGHT.BACKGROUND
+                          : COLORS.DARK.BACKGROUND
+                        : colorSchema == 'light'
+                        ? COLORS.LIGHT.TEXT_COLOR
+                        : COLORS.DARK.TEXT_COLOR,
+                  }}>
+                  {date}
+                </Text>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text>Bu İşletme İle İlgili Bilgi Bulunamadı!</Text>
+          )}
         </ScrollView>
         {/* Meet Times */}
         <ScrollView
@@ -174,40 +180,41 @@ const BusinessPage = ({route, navigation}) => {
             width: '100%',
             flexDirection: 'row',
           }}>
-          {meetTime.map((time, index) => (
-            <StyledMeetTimeButton
-              style={{
-                backgroundColor:
-                  selectedTime == time
-                    ? colorSchema == 'light'
-                      ? COLORS.LIGHT.TEXT_COLOR
-                      : COLORS.DARK.TEXT_COLOR
-                    : null,
-                borderColor:
-                  selectedTime == time ? 'transparent' : COLORS.DARK.RED,
-              }}
-              disabled={disabled}
-              key={index}
-              activeOpacity={0.8}
-              onPress={() =>
-                setSelectedTime(time === selectedTime ? '' : time)
-              }>
-              <Text
+          {data.businessMeetDates &&
+            data.businessMeetTimes.map((time, index) => (
+              <StyledMeetTimeButton
                 style={{
-                  fontFamily: 'Montserrat-SemiBold',
-                  color:
+                  backgroundColor:
                     selectedTime == time
                       ? colorSchema == 'light'
-                        ? COLORS.LIGHT.BACKGROUND
-                        : COLORS.DARK.BACKGROUND
-                      : colorSchema == 'light'
-                      ? COLORS.LIGHT.TEXT_COLOR
-                      : COLORS.DARK.TEXT_COLOR,
-                }}>
-                {time}
-              </Text>
-            </StyledMeetTimeButton>
-          ))}
+                        ? COLORS.LIGHT.TEXT_COLOR
+                        : COLORS.DARK.TEXT_COLOR
+                      : null,
+                  borderColor:
+                    selectedTime == time ? 'transparent' : COLORS.DARK.RED,
+                }}
+                disabled={disabled}
+                key={index}
+                activeOpacity={0.8}
+                onPress={() =>
+                  setSelectedTime(time === selectedTime ? '' : time)
+                }>
+                <Text
+                  style={{
+                    fontFamily: 'Montserrat-SemiBold',
+                    color:
+                      selectedTime == time
+                        ? colorSchema == 'light'
+                          ? COLORS.LIGHT.BACKGROUND
+                          : COLORS.DARK.BACKGROUND
+                        : colorSchema == 'light'
+                        ? COLORS.LIGHT.TEXT_COLOR
+                        : COLORS.DARK.TEXT_COLOR,
+                  }}>
+                  {time}
+                </Text>
+              </StyledMeetTimeButton>
+            ))}
         </ScrollView>
 
         <TouchableOpacity

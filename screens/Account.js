@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useEffect} from 'react';
-import {Text, useColorScheme} from 'react-native';
+import React from 'react';
+import {Text, useColorScheme, Linking, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {COLORS} from '../Colors';
 import {setData} from '../redux/slices/UserSlices';
@@ -65,6 +65,11 @@ const Account = ({navigation}) => {
             </Text>
           </StyledAccountButton>
         ))}
+
+        <Button
+          title="GO"
+          onPress={() => Linking.openURL('https://randevum.tech/')}
+        />
 
         <StyledAccountButton
           onPress={() => handleLogOut()}
