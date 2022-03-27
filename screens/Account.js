@@ -66,10 +66,10 @@ const Account = ({navigation}) => {
           </StyledAccountButton>
         ))}
 
-        <Button
+        {/*<Button
           title="GO"
           onPress={() => Linking.openURL('https://randevum.tech/')}
-        />
+          />*/}
 
         <StyledAccountButton
           onPress={() => handleLogOut()}
